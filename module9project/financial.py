@@ -51,10 +51,53 @@ def save_data(self):
         }
         with open("budget_data.json", "w") as f:
             json.dump(data, f)
+            
 
 # Input Validation Functions
+def load_data(self):
+        try:
+            with open("budget_data.json", "r") as f:
+                data = json.load(f)
+                self.income = data.get("income", 0.0)
+                self.savings_goal = data.get("savings_goal", 0.0)
+                for name, expenses in data.get("categories", {}).items():
+                    category = BudgetCategory(name)
+                    for expense in expenses:
+                        category.add_expense(expense["amount"], expense["description"], expense["date"])
+                    self.categories[name] = category
+        except FileNotFoundError:
+            pass
 
 # TO DO: Define get_valid_float(), get_valid_date() functions
+def get_valid_float(prompt):
+        while True:
+            try:
+                value = float(input(prompt))
+                if value < 0:
+                    raise ValueError
+                return value
+            except ValueError:
+                print("Invalid input. Please enter a positive number.")     
+def get_valid_date(prompt):
+        while True:
+            date_str = input(prompt)
+            try:
+                date = datetime.strptime(date_str, "%Y-%m-%d")
+                return date_str
+            except ValueError:
+                print("Invalid date format. Please enter date in YYYY-MM-DD format.")   
+def visualize_expenses(self):
+        categories = list(self.categories.keys())
+        expenses = [self.categories[cat].total_expenses() for cat in categories]
+
+        plt.figure(figsize=(10, 6))
+        plt.bar(categories, expenses, color='skyblue')
+        plt.xlabel('Categories')
+        plt.ylabel('Total Expenses')
+        plt.title('Expenses by Category')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()  
 
 
 
@@ -78,12 +121,17 @@ def main():
 
         if choice == '1':
         	# TO DO: Prompt for monthly income as input. Set income and display what income is set to.
+            amount = get_valid_float("Enter your monthly income: ")
+            manager.set_income(amount)      
+            print(f"Income is set to: ${manager.income:.2f}")   
 
-        
-        elif choice == '2':
+            elif choice == '2':
         	# TO DO: Prompt for savings goal as input. Set savings goal and display savings goal is set to.
+            amount = get_valid_float("Enter your savings goal: ")
+            manager.set_savings_goal(amount)
+            print(f"Savings goal is set to: ${manager.savings_goal:.2f}")
         
-        elif choice == '3':
+            elif choice == '3':
         	# TO DO: 
             #      Prompt for expense category as input. 
             #      Prompt for expense amount as input. 
