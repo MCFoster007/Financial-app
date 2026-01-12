@@ -29,8 +29,28 @@ class BudgetManager:
 
   
 # TO DO: Define functions: set_income(), set_savings_goal(), add_expense(), total_expenses(), progress_toward_goal(), save_data(), load_data(), and visualize_expenses().
-
-
+def set_income(self, amount):
+        self.income = amount    
+def set_savings_goal(self, amount):
+        self.savings_goal = amount
+def add_expense(self, category_name, amount, description, date):
+        if category_name not in self.categories:
+            self.categories[category_name] = BudgetCategory(category_name)
+        self.categories[category_name].add_expense(amount, description, date)
+def total_expenses(self):
+        return sum(category.total_expenses() for category in self.categories.values())
+def progress_toward_goal(self):
+        total_expenses = self.total_expenses()
+        current_savings = self.income - total_expenses
+        return current_savings, self.savings_goal - current_savings
+def save_data(self):
+        data = {
+            "income": self.income,
+            "savings_goal": self.savings_goal,
+            "categories": {name: category.expenses for name, category in self.categories.items()}
+        }
+        with open("budget_data.json", "w") as f:
+            json.dump(data, f)
 
 # Input Validation Functions
 
