@@ -141,7 +141,7 @@ def get_valid_date(prompt: str) -> str:
             print(
                 "Invalid date format. Please enter date in YYYY-MM_DD format.")
 
-    def visualize_expenses(self: BudgetManager):
+def visualize_expenses(self: BudgetManager):
         if not self.categories:
             print("No expenses to visualize.")
             return
@@ -175,19 +175,19 @@ def main():
 
         choice = input("Choose an option (1-7): ")
 
-    if choice == '1':
+        if choice == '1':
         # TO DO: Prompt for monthly income as input. Set income&display what income is set to.
-        amount = get_valid_float('Enter your monthly income: ')
-        manager.set_income(amount)
-        print(f"Income is set to: ${manager.income:.2f}")
+            amount = get_valid_float('Enter your monthly income: ')
+            manager.set_income(amount)
+            print(f"Income is set to: ${manager.income:.2f}")
 
-    elif choice == '2':
+        elif choice == '2':
         # TO DO: Prompt for savings goal as input. Set savings goal and display savings goal is set to.
-        amount = get_valid_float('Enter your savings goal:')
-        manager.set_savings_goal(amount)
-        print(f"Savings goal is set to: ${manager.savings_goal: .2f}")
+            amount = get_valid_float('Enter your savings goal:')
+            manager.set_savings_goal(amount)
+            print(f"Savings goal is set to: ${manager.savings_goal: .2f}")
 
-    elif choice == '3':
+        elif choice == '3':
         # TO DO:
         #      Prompt for expense category as input.
         #      Prompt for expense amount as input.
@@ -195,18 +195,18 @@ def main():
         #      Prompt for expense date in the format of (YYYY-MM-DD)
         #      Add expense.
         #      Display added expense.
-        category = input("Enter expense category: ")
-        amount = get_valid_float("Enter expense amount: ")
-        description = input("Enter a brief description of the expense: ")
-        date = get_valid_date("Enter expense date (YYYY-MM-DD): ")
-        manager.add_expense(category, amount, description, date)
-        print(
-            f"Added expense: ${amount:.2f} for '{description}'on {date} in category'{category}'"
+            category = input("Enter expense category: ")
+            amount = get_valid_float("Enter expense amount: ")
+            description = input("Enter a brief description of the expense: ")
+            date = get_valid_date("Enter expense date (YYYY-MM-DD): ")
+            manager.add_expense(category, amount, description, date)
+            print(
+                f"Added expense: ${amount:.2f} for '{description}'on {date} in category'{category}'"
         )
 
 # TO DO: Get total expenses. Display total expenses.
-    elif choice == '4':
-        print(f"Total expenses: ${manager.total_expenses():.2f}")
+        elif choice == '4':
+            print(f"Total expenses: ${manager.total_expenses():.2f}")
 
         # TO DO: Get progress towards goal. If on track, display
         #�You are on track!� and also display the
@@ -214,26 +214,26 @@ def main():
         #�Current savings $xxx. You need $xxx to
         #reach your goal.�
 
-    elif choice == '5':
-        current_savings, amount_needed = manager.progress_toward_goal()
-        if amount_needed <= 0:
-            print(
-                f"You are on track! Current savings: ${current_savings: .2f}")
-        else:
-            print(
-                f"Current savings: ${current_savings: .2f}. You need ${amount_needed: .2f} to reach your goal."
+        elif choice == '5':
+            current_savings, amount_needed = manager.progress_toward_goal()
+            if amount_needed <= 0:
+                print(
+                    f"You are on track! Current savings: ${current_savings: .2f}")
+            else:
+                print(
+                    f"Current savings: ${current_savings: .2f}. You need ${amount_needed: .2f} to reach your goal."
             )
 
 # TO DO: call visualize_expenses() to show expense graph or pie chart
 
-    elif choice == '6':
-        manager.visualize_expenses()
+        elif choice == '6':
+            manager.visualize_expenses()
 
-    elif choice == '7':
+        elif choice == '7':
         # TO DO: Save data and exit program. Display a message to indicate that data has been saved
         #        successfully and exiting the program.
-        manager.save_data()
-        print("Data saved successfully. Exiting the program.")
+            manager.save_data()
+            print("Data saved successfully. Exiting the program.")
         break
 
     else:
