@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from storage import JSONStorage
 
+#this is the original file with added validation and completed methods
+
 # Expense Class
 class Expense:
     def __init__(self, amount: float, description: str, date: str):
