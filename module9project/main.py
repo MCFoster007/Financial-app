@@ -1,7 +1,7 @@
 import json
 import matplotlib.pyplot as plt
 from datetime import datetime
-from storage import JSONStorage
+
 
 # Expense Class
 class Expense:
