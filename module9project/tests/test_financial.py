@@ -57,6 +57,8 @@ class TestBudgetManager(unittest.TestCase):
     def test_negative_expense_rejected(self):
         with self.assertRaises(ValueError):
             self.manager.add_expense("Food", -50, "Refund?", "2025-01-10")
+
+
    
         
 if __name__ == '__main__':

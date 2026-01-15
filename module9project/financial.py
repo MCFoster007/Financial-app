@@ -6,10 +6,10 @@ from storage import JSONStorage
 # Expense Class
 class Expense:
     def __init__(self, amount: float, description: str, date: str):
-        # if amount < 0:
-        #     raise ValueError("Expense amount cannot be negative.")  # added validation for negative expense
-        # if not description:
-        #     raise ValueError("Description cannot be empty.") # validate description
+        if amount < 0:
+            raise ValueError("Expense amount cannot be negative.")  # added validation for negative expense
+        if not description:
+            raise ValueError("Description cannot be empty.") # validate description
         self.amount = amount
         self.description = description
         self.date = date
