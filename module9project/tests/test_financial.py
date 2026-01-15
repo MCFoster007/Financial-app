@@ -9,7 +9,7 @@ class TestExpense(unittest.TestCase):
     def test_expense_creation(self):
         e = Expense(100.0, "Groceries", "2024-01-15")
         self.assertEqual(e.amount, 100.0)
-        self.assertEqual(e.name, "Groceries")
+        self.assertEqual(e.description, "Groceries")
         self.assertEqual(e.date, "2024-01-15")
         self.assertEqual(str(e), "$100.00 for 'Groceries' on 2024-01-15")
         
@@ -29,7 +29,7 @@ class TestBudgetManager(unittest.TestCase):
     def setUp(self):
         # Create a fresh manager for each test
         self.manager = TestableBudgetManager()  
-        #self.manager.categories = {}  # avoid loading saved data
+        self.manager.categories = {}  # avoid loading saved data
         self.manager.income = 10000
         self.manager.savings_goal = 300
 
@@ -38,7 +38,7 @@ class TestBudgetManager(unittest.TestCase):
         self.assertEqual(self.manager.income, 2000)
 
     def test_add_expense_creates_category(self):
-        self.manager.add_expense("Food", 100.0, "", "2025-01-10")
+        self.manager.add_expense("Food", 25.0, "Lunch", "2025-01-10")
         self.assertIn("Food", self.manager.categories)
         self.assertEqual(self.manager.categories["Food"].total_expenses(), 25.0)
 
@@ -52,6 +52,12 @@ class TestBudgetManager(unittest.TestCase):
         current_savings, amount_needed = self.manager.progress_toward_goal()
         self.assertEqual(current_savings, 9900)
         self.assertEqual(amount_needed, -9600)  # because goal is 9600
+        
+        #added edge case test
+    def test_negative_expense_rejected(self):
+        with self.assertRaises(ValueError):
+            self.manager.add_expense("Food", -50, "Refund?", "2025-01-10")
+   
         
 if __name__ == '__main__':
             unittest.main()

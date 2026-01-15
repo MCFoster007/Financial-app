@@ -5,6 +5,10 @@ from datetime import datetime
 # Expense Class
 class Expense:
     def __init__(self, amount: float, description: str, date: str):
+        if amount < 0:
+            raise ValueError("Expense amount cannot be negative.")  # added validation for negative expense
+        if not description:
+            raise ValueError("Description cannot be empty.") # validate description
         self.amount = amount
         self.description = description
         self.date = date
@@ -25,8 +29,9 @@ class BudgetCategory:
         return expense
 
     def total_expenses(self) -> float:
-        return sum(expense.amount for expense in self.expenses)
-
+        return sum(e.amount for e in self.expenses)      
+    #(expense.amount for expense in self.expenses was replaced for e.amount for e in self.expenses for brevity)
+ #to delegates validation to Expense.
 
 # Budget Manager Class
 class BudgetManager:
@@ -43,6 +48,8 @@ class BudgetManager:
         self.savings_goal = amount
 
     def add_expense(self, category_name: str, amount: float, description: str, date: str) -> Expense:
+        if amount < 0:
+            raise ValueError("Expense amount cannot be negative.") # added validation for negative expense
         if category_name not in self.categories:
             self.categories[category_name] = BudgetCategory(category_name)
         return self.categories[category_name].add_expense(amount, description, date)
