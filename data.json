@@ -1,1 +1,1 @@
-{"income": 50000.0, "savings_goal": 500.0, "categories": {"health": [{"amount": 50.0, "description": "gym membership", "date": "2026-10-10"}]}}
+{"income": 50000.0, "savings_goal": 500.0, "categories": {"health": [{"amount": 50.0, "description": "gym membership", "date": "2026-10-10"}], "transportation": [{"amount": 50.0, "description": "bus", "date": "2025-11-11"}], "house": [{"amount": 7.0, "description": "live ", "date": "2025-11-11"}]}}
