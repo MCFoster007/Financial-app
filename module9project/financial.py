@@ -6,8 +6,8 @@ from storage import JSONStorage
 # Expense Class
 class Expense:
     def __init__(self, amount: float, description: str, date: str):
-        if amount < 0:
-            raise ValueError("Expense amount cannot be negative.")  # added validation for negative expense
+        # if amount < 0:
+        #     raise ValueError("Expense amount cannot be negative.")  # added validation for negative expense
         if not description:
             raise ValueError("Description cannot be empty.") # validate description
         self.amount = amount
@@ -65,39 +65,10 @@ class BudgetManager:
         return current_savings, amount_needed
 
     def save_data(self) -> None:
-        data = {
-            "income": self.income,
-            "savings_goal": self.savings_goal,
-            "categories": {
-                name: [
-                    {"amount": e.amount, "description": e.description, "date": e.date}
-                    for e in category.expenses
-                ]
-                for name, category in self.categories.items()
-            }
-        }
-        with open("budget_data.json", "w", encoding="utf-8") as f:
-            json.dump(data, f)
+        JSONStorage.save(self)
 
     def load_data(self) -> None:
-        try:
-            with open("budget_data.json", "r", encoding="utf-8") as f:
-                data = json.load(f)
-        except FileNotFoundError:
-            print("No saved data found. Starting fresh.")
-            return
-        except json.JSONDecodeError:
-            print("Warning: Could not load data, file is corrupted or invalid.")
-            return
-
-        self.income = data.get("income", 0.0)
-        self.savings_goal = data.get("savings_goal", 0.0)
-
-        for name, expenses in data.get("categories", {}).items():
-            category = BudgetCategory(name)
-            for expense in expenses:
-                category.add_expense(expense["amount"], expense["description"], expense["date"])
-            self.categories[name] = category
+        JSONStorage.load(self)
 
     def visualize_expenses(self) -> None:
         if not self.categories:

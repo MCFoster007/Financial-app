@@ -1,5 +1,6 @@
 import json
-from financial import BudgetCategory, Expense
+
+
 
 class JSONStorage:
     @staticmethod
@@ -25,6 +26,7 @@ class JSONStorage:
 
     @staticmethod
     def load(manager, filename="data.json"):
+        from financial import BudgetCategory, Expense
         try:
             with open(filename, "r") as f:
                 data = json.load(f)
