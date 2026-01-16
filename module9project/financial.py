@@ -3,15 +3,15 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from storage import JSONStorage
 
-#this is the original file with added validation and completed methods
+#This is the original file with added validation and completed methods
 
 # Expense Class
 class Expense:
     def __init__(self, amount: float, description: str, date: str):
         if amount < 0:
-            raise ValueError("Expense amount cannot be negative.")  # added validation for negative expense
+            raise ValueError("Expense amount cannot be negative.")  # Added validation for negative expense
         if not description:
-            raise ValueError("Description cannot be empty.") # validate description
+            raise ValueError("Description cannot be empty.") # Validate description
         self.amount = amount
         self.description = description
         self.date = date
@@ -33,8 +33,7 @@ class BudgetCategory:
 
     def total_expenses(self) -> float:
         return sum(e.amount for e in self.expenses)      
-    #(expense.amount for expense in self.expenses was replaced for e.amount for e in self.expenses for brevity)
- #to delegates validation to Expense.
+    #(expense.amount for expense in self.expenses was replaced for e.amount for e in self.expenses for brevity)to delegates validation to Expense.
 
 # Budget Manager Class
 class BudgetManager:
@@ -52,7 +51,7 @@ class BudgetManager:
 
     def add_expense(self, category_name: str, amount: float, description: str, date: str) -> Expense:
         if amount < 0:
-            raise ValueError("Expense amount cannot be negative.") # added validation for negative expense
+            raise ValueError("Expense amount cannot be negative.") # Added validation for negative expense
         if category_name not in self.categories:
             self.categories[category_name] = BudgetCategory(category_name)
         return self.categories[category_name].add_expense(amount, description, date)
@@ -66,10 +65,10 @@ class BudgetManager:
         amount_needed = self.savings_goal - current_savings
         return current_savings, amount_needed
 
-    def save_data(self) -> None:
+    def save_data(self) -> None: # To avoid redundancy and improve maintainability
         JSONStorage.save(self)
 
-    def load_data(self) -> None:
+    def load_data(self) -> None: # To avoid redundancy and improve maintainability
         JSONStorage.load(self)
 
     def visualize_expenses(self) -> None:
