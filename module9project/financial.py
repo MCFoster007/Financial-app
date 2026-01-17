@@ -151,7 +151,7 @@ def main():
 
         elif choice == '5':
             current_savings, amount_needed = manager.progress_toward_goal()
-            if amount_needed <= 0:
+            if amount_needed <= 50:
                 print(f"You are on track! Current savings: ${current_savings:.2f}")
             else:
                 print(f"Current savings: ${current_savings:.2f}. You need ${amount_needed:.2f} to reach your goal.")
