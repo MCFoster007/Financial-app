@@ -20,7 +20,7 @@ class TestBudgetCategory(unittest.TestCase):
         self.assertEqual(len(cat.expenses), 1)
         self.assertEqual(cat.total_expenses(), 20.0)
 
-class TestableBudgetManager(BudgetManager):#as a helper class
+class TestableBudgetManager(BudgetManager):      #As a helper class
     def load_data(self):
         # Override to avoid loading from file during tests
         pass

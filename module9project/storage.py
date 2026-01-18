@@ -1,10 +1,11 @@
 import json
 
+#This is the storage.py file that handles saving and loading data
 
 
 class JSONStorage:
     @staticmethod
-    def save(manager, filename="data.json"):
+    def save(manager, filename="data.json"): #Build a serializable structure from the BudgetManagers data
         data = {
             "income": manager.income,
             "savings_goal": manager.savings_goal,
@@ -20,22 +21,24 @@ class JSONStorage:
                 for name, category in manager.categories.items()
             }
         }
-
+# Write the data to a JSON file
         with open(filename, "w") as f:
             json.dump(data, f)
 
     @staticmethod
     def load(manager, filename="data.json"):
         from financial import BudgetCategory, Expense
+        #Attempt to load data from a JSON file
         try:
             with open(filename, "r") as f:
                 data = json.load(f)
         except FileNotFoundError:
-            return
-
+            return #fallabck to empty data if file doesn't exist
+        
         manager.income = data.get("income", 0)
         manager.savings_goal = data.get("savings_goal", 0)
 
+#rebuild category objects and expenses from JSON data
         for name, expenses in data.get("categories", {}).items():
             category = BudgetCategory(name)
             for e in expenses:
